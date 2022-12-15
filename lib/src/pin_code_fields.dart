@@ -785,6 +785,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
+            errorStyle: _pinTheme.errorTextStyle,
           ),
 
           style: TextStyle(
