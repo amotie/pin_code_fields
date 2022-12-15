@@ -779,7 +779,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
           // using same as background color so tha it can blend into the view
           cursorWidth: 0.01,
           decoration: InputDecoration(
-            // contentPadding: const EdgeInsets.all(0),
+            contentPadding: const EdgeInsets.all(8),
             border: InputBorder.none,
             fillColor: widget.backgroundColor,
             enabledBorder: InputBorder.none,
