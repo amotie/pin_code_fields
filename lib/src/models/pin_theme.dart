@@ -22,8 +22,11 @@ class PinTheme {
   /// Colors of the input fields which don't have inputs. Default is [Colors.red]
   final Color inactiveFillColor;
 
-  /// Color of the input field when in error mode. Default is [Colors.redAccent]
-  final Color errorBorderColor;
+  /// Liner Gradient of the input field when in error mode.
+  final LinearGradient errorBorderGradinatn;
+
+  /// Liner Gradient of the input field when in all mode.
+  final LinearGradient borderGradient;
 
   /// Border radius of each pin code field
   final BorderRadius borderRadius;
@@ -63,7 +66,16 @@ class PinTheme {
     this.activeFillColor = Colors.green,
     this.selectedFillColor = Colors.blue,
     this.inactiveFillColor = Colors.red,
-    this.errorBorderColor = Colors.redAccent,
+    this.errorBorderGradinatn = const LinearGradient(
+      colors: [Colors.red, Colors.red],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    this.borderGradient = const LinearGradient(
+      colors: [Colors.green, Colors.green],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
     this.activeBoxShadows,
     this.inActiveBoxShadows,
   });
@@ -76,7 +88,8 @@ class PinTheme {
     Color? activeFillColor,
     Color? selectedFillColor,
     Color? inactiveFillColor,
-    Color? errorBorderColor,
+    LinearGradient? errorBorderGradinatn,
+    LinearGradient? borderGradient,
     BorderRadius? borderRadius,
     double? fieldHeight,
     double? fieldWidth,
@@ -97,7 +110,9 @@ class PinTheme {
       fieldWidth: fieldWidth ?? defaultValues.fieldWidth,
       inactiveColor: inactiveColor ?? defaultValues.inactiveColor,
       inactiveFillColor: inactiveFillColor ?? defaultValues.inactiveFillColor,
-      errorBorderColor: errorBorderColor ?? defaultValues.errorBorderColor,
+      errorBorderGradinatn:
+          errorBorderGradinatn ?? defaultValues.errorBorderGradinatn,
+      borderGradient: borderGradient ?? defaultValues.borderGradient,
       selectedColor: selectedColor ?? defaultValues.selectedColor,
       selectedFillColor: selectedFillColor ?? defaultValues.selectedFillColor,
       shape: shape ?? defaultValues.shape,

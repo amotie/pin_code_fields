@@ -524,12 +524,32 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       return _pinTheme.selectedColor;
     } else if (_selectedIndex > index) {
       Color relevantActiveColor = _pinTheme.activeColor;
-      if (isInErrorMode) relevantActiveColor = _pinTheme.errorBorderColor;
+      // if (isInErrorMode) relevantActiveColor = _pinTheme.errorBorderColor;
       return relevantActiveColor;
     }
 
     Color relevantInActiveColor = _pinTheme.inactiveColor;
-    if (isInErrorMode) relevantInActiveColor = _pinTheme.errorBorderColor;
+    // if (isInErrorMode) relevantInActiveColor = _pinTheme.errorBorderColor;
+    return relevantInActiveColor;
+  }
+
+  LinearGradient _getLinerGradintFromIndex(int index) {
+    setState(() {});
+    if (!widget.enabled) {
+      return _pinTheme.borderGradient;
+    }
+    if (((_selectedIndex == index) ||
+            (_selectedIndex == index + 1 && index + 1 == widget.length)) &&
+        _focusNode!.hasFocus) {
+      return _pinTheme.borderGradient;
+    } else if (_selectedIndex > index) {
+      LinearGradient relevantActiveColor = _pinTheme.borderGradient;
+      if (isInErrorMode) relevantActiveColor = _pinTheme.errorBorderGradinatn;
+      return relevantActiveColor;
+    }
+
+    LinearGradient relevantInActiveColor = _pinTheme.borderGradient;
+    if (isInErrorMode) relevantInActiveColor = _pinTheme.errorBorderGradinatn;
     return relevantInActiveColor;
   }
 
@@ -843,9 +863,9 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       result.add(
         Container(
             padding: _pinTheme.fieldOuterPadding,
-            child: AnimatedContainer(
-              curve: widget.animationCurve,
-              duration: widget.animationDuration,
+            child: Container(
+              // curve: widget.animationCurve,
+              // duration: widget.animationDuration,
               width: _pinTheme.fieldWidth,
               height: _pinTheme.fieldHeight,
               decoration: BoxDecoration(
@@ -867,9 +887,8 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
                           width: _pinTheme.borderWidth,
                         ),
                       )
-                    : Border.all(
-                        color: _getColorFromIndex(i),
-                        width: _pinTheme.borderWidth,
+                    : GradientBoxBorder(
+                        gradient: _getLinerGradintFromIndex(i),
                       ),
               ),
               child: Center(

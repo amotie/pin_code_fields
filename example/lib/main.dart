@@ -53,6 +53,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+
     super.initState();
   }
 
@@ -156,12 +157,25 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         return null;
                       }
                     },
+
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
                       fieldHeight: 50,
                       fieldWidth: 40,
                       activeFillColor: Colors.white,
+                      inactiveFillColor: Colors.white,
+                      selectedFillColor: Colors.white,
+                      errorBorderGradinatn: const LinearGradient(
+                        colors: [Colors.red, Colors.yellowAccent],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderGradient: const LinearGradient(
+                        colors: [Colors.green, Colors.blue],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                     ),
                     cursorColor: Colors.black,
                     animationDuration: const Duration(milliseconds: 300),
@@ -177,6 +191,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       )
                     ],
                     onCompleted: (v) {
+                      errorController!.add(ErrorAnimationType.shake);
                       debugPrint("Completed");
                     },
                     // onTap: () {
@@ -188,6 +203,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         currentText = value;
                       });
                     },
+
                     beforeTextPaste: (text) {
                       debugPrint("Allowing to paste $text");
                       //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
