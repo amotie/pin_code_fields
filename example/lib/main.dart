@@ -166,16 +166,16 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                       activeFillColor: Colors.white,
                       inactiveFillColor: Colors.white,
                       selectedFillColor: Colors.white,
-                      errorBorderGradinatn: const LinearGradient(
-                        colors: [Colors.red, Colors.yellowAccent],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderGradient: const LinearGradient(
-                        colors: [Colors.green, Colors.blue],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                      // errorBorderGradinatn: const LinearGradient(
+                      //   colors: [Colors.red, Colors.yellowAccent],
+                      //   begin: Alignment.topLeft,
+                      //   end: Alignment.bottomRight,
+                      // ),
+                      // borderGradient: const LinearGradient(
+                      //   colors: [Colors.white10, Colors.white10],
+                      //   begin: Alignment.topLeft,
+                      //   end: Alignment.bottomRight,
+                      // ),
                     ),
                     cursorColor: Colors.black,
                     animationDuration: const Duration(milliseconds: 300),

@@ -23,10 +23,10 @@ class PinTheme {
   final Color inactiveFillColor;
 
   /// Liner Gradient of the input field when in error mode.
-  final LinearGradient errorBorderGradinatn;
+  final LinearGradient? errorBorderGradinatn;
 
   /// Liner Gradient of the input field when in all mode.
-  final LinearGradient borderGradient;
+  final LinearGradient? borderGradient;
 
   /// Border radius of each pin code field
   final BorderRadius borderRadius;
@@ -67,16 +67,8 @@ class PinTheme {
     this.activeFillColor = Colors.green,
     this.selectedFillColor = Colors.blue,
     this.inactiveFillColor = Colors.red,
-    this.errorBorderGradinatn = const LinearGradient(
-      colors: [Colors.red, Colors.red],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-    this.borderGradient = const LinearGradient(
-      colors: [Colors.green, Colors.green],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
+    this.errorBorderGradinatn,
+    this.borderGradient,
     this.activeBoxShadows,
     this.inActiveBoxShadows,
     this.errorTextStyle = const TextStyle(color: Colors.red, fontSize: 15),

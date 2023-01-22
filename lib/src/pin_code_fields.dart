@@ -200,6 +200,7 @@ class PinCodeTextField extends StatefulWidget {
 
   /// Enable auto unfocus
   final bool autoUnfocus;
+  final BoxDecoration? inderLineDecoration;
 
   PinCodeTextField({
     Key? key,
@@ -257,6 +258,7 @@ class PinCodeTextField extends StatefulWidget {
     this.textGradient,
     this.readOnly = false,
     this.autoUnfocus = true,
+    this.inderLineDecoration,
 
     /// Default for [AutofillGroup]
     this.onAutoFillDisposeAction = AutofillContextAction.commit,
@@ -533,7 +535,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
     return relevantInActiveColor;
   }
 
-  LinearGradient _getLinerGradintFromIndex(int index) {
+  LinearGradient? _getLinerGradintFromIndex(int index) {
     setState(() {});
     if (!widget.enabled) {
       return _pinTheme.borderGradient;
@@ -543,12 +545,12 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
         _focusNode!.hasFocus) {
       return _pinTheme.borderGradient;
     } else if (_selectedIndex > index) {
-      LinearGradient relevantActiveColor = _pinTheme.borderGradient;
+      LinearGradient? relevantActiveColor = _pinTheme.borderGradient;
       if (isInErrorMode) relevantActiveColor = _pinTheme.errorBorderGradinatn;
       return relevantActiveColor;
     }
 
-    LinearGradient relevantInActiveColor = _pinTheme.borderGradient;
+    LinearGradient? relevantInActiveColor = _pinTheme.borderGradient;
     if (isInErrorMode) relevantInActiveColor = _pinTheme.errorBorderGradinatn;
     return relevantInActiveColor;
   }
@@ -864,67 +866,74 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
     for (int i = 0; i < widget.length; i++) {
       result.add(
         Container(
-            padding: _pinTheme.fieldOuterPadding,
-            child: Container(
-              // curve: widget.animationCurve,
-              // duration: widget.animationDuration,
-              width: _pinTheme.fieldWidth,
-              height: _pinTheme.fieldHeight,
-              decoration: BoxDecoration(
-                color: widget.enableActiveFill
-                    ? _getFillColorFromIndex(i)
-                    : Colors.transparent,
-                boxShadow: (_pinTheme.activeBoxShadows != null ||
-                        _pinTheme.inActiveBoxShadows != null)
-                    ? _getBoxShadowFromIndex(i)
-                    : widget.boxShadows,
-                shape: _pinTheme.shape == PinCodeFieldShape.circle
-                    ? BoxShape.circle
-                    : BoxShape.rectangle,
-                borderRadius: borderRadius,
-                border: _pinTheme.shape == PinCodeFieldShape.underline
-                    ? Border(
-                        bottom: BorderSide(
-                          color: _getColorFromIndex(i),
-                          width: _pinTheme.borderWidth,
-                        ),
-                      )
-                    : GradientBoxBorder(
-                        gradient: _getLinerGradintFromIndex(i),
-                      ),
-              ),
-              child: Center(
-                child: AnimatedSwitcher(
-                  switchInCurve: widget.animationCurve,
-                  switchOutCurve: widget.animationCurve,
-                  duration: widget.animationDuration,
-                  transitionBuilder: (child, animation) {
-                    if (widget.animationType == AnimationType.scale) {
-                      return ScaleTransition(
-                        scale: animation,
-                        child: child,
-                      );
-                    } else if (widget.animationType == AnimationType.fade) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    } else if (widget.animationType == AnimationType.none) {
-                      return child;
-                    } else {
-                      return SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0, .5),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      );
-                    }
-                  },
-                  child: buildChild(i),
+          padding: const EdgeInsets.only(bottom: 1),
+          decoration: widget.inderLineDecoration,
+          child: Container(
+              padding: _pinTheme.fieldOuterPadding,
+              child: Container(
+                // curve: widget.animationCurve,
+                // duration: widget.animationDuration,
+                width: _pinTheme.fieldWidth,
+                height: _pinTheme.fieldHeight,
+                decoration: BoxDecoration(
+                  color: widget.enableActiveFill
+                      ? _getFillColorFromIndex(i)
+                      : Colors.transparent,
+                  boxShadow: (_pinTheme.activeBoxShadows != null ||
+                          _pinTheme.inActiveBoxShadows != null)
+                      ? _getBoxShadowFromIndex(i)
+                      : widget.boxShadows,
+                  shape: _pinTheme.shape == PinCodeFieldShape.circle
+                      ? BoxShape.circle
+                      : BoxShape.rectangle,
+                  borderRadius: borderRadius,
+                  border: _pinTheme.shape == PinCodeFieldShape.underline
+                      ? Border(
+                          bottom: BorderSide(
+                            color: _getColorFromIndex(i),
+                            width: _pinTheme.borderWidth,
+                          ),
+                        )
+                      : widget.pinTheme.borderGradient != null &&
+                              widget.pinTheme.errorBorderGradinatn != null
+                          ? GradientBoxBorder(
+                              gradient: _getLinerGradintFromIndex(i)!,
+                            )
+                          : null,
                 ),
-              ),
-            )),
+                child: Center(
+                  child: AnimatedSwitcher(
+                    switchInCurve: widget.animationCurve,
+                    switchOutCurve: widget.animationCurve,
+                    duration: widget.animationDuration,
+                    transitionBuilder: (child, animation) {
+                      if (widget.animationType == AnimationType.scale) {
+                        return ScaleTransition(
+                          scale: animation,
+                          child: child,
+                        );
+                      } else if (widget.animationType == AnimationType.fade) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      } else if (widget.animationType == AnimationType.none) {
+                        return child;
+                      } else {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0, .5),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      }
+                    },
+                    child: buildChild(i),
+                  ),
+                ),
+              )),
+        ),
       );
     }
     return result;
